@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ATHAR — Maison de Parfum, Beyrouth</title>
+  <meta name="description" content="ATHAR (أثر, the trace you leave behind) is a Beirut perfume house. ARZ No.01, an eau de parfum distilled from the cedars of the Chouf. Explore the bottle in real-time 3D." />
+  <meta name="theme-color" content="#0b0907" />
+  <meta property="og:title" content="ATHAR — Cedar, bottled." />
+  <meta property="og:description" content="A Beirut perfume house, told in real-time 3D." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b0907'/%3E%3Crect x='20' y='22' width='24' height='30' rx='4' fill='none' stroke='%23d8b06a' stroke-width='3'/%3E%3Crect x='27' y='10' width='10' height='10' rx='2' fill='%23d8b06a'/%3E%3C/svg%3E" />
+  <link rel="preload" href="fonts/instrument-serif.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/instrument-sans.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Loader -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader-word"><span>أثر</span><span class="loader-fill" id="loaderFill">أثر</span></div>
+    <p class="loader-def"><em>athar</em> — the trace you leave behind</p>
+    <div class="loader-meta"><span>Maison de Parfum — Beyrouth</span><span id="loaderPct">00</span></div>
+  </div>
+
+  <!-- The 3D stage (fixed, behind everything) -->
+  <canvas id="gl" aria-hidden="true"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Callouts that follow the 3D parts -->
+  <div class="hud" aria-hidden="true">
+    <svg class="hud-lines" id="hudLines"></svg>
+    <div id="hudTags"></div>
+  </div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="#top" data-go="0"><span class="brand-lat">ATHAR</span><span class="brand-ar">أثر</span></a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#anatomy" data-go="0.66">Anatomy</a>
+      <a href="#notes" data-go="0.7">Notes</a>
+      <a href="#collection" data-go="0.2">Collection</a>
+      <a href="#atelier">Atelier</a>
+    </nav>
+    <button class="bag" id="bagBtn" type="button" aria-label="Bag">Bag <span class="bag-count" id="bagCount">0</span></button>
+  </header>
+
+  <!-- Scroll progress, drawn as a filling vial -->
+  <aside class="vial" aria-hidden="true">
+    <div class="vial-glass"><i id="vialFill"></i></div>
+    <b id="vialMl">0 ml</b>
+  </aside>
+
+  <main>
+    <!-- 00 Hero -->
+    <section class="hero" id="top">
+      <div class="hero-inner" data-r="hero:-1:-1:0.04:0.4">
+        <p class="eyebrow i1"><span class="ar">أثر</span> athar — the trace you leave behind</p>
+        <h1 class="hero-title">
+          <span class="ht ht-l"><span class="i2">Cedar,</span></span>
+          <span class="ht ht-r"><em class="i3">bottled.</em></span>
+        </h1>
+        <div class="hero-foot i4">
+          <p class="hero-sub"><b>ARZ No.01</b> — an eau de parfum distilled from the cedars of the Chouf.</p>
+          <a class="btn" href="#anatomy" data-go="0.66">Explore the bottle <span aria-hidden="true">↓</span></a>
+        </div>
+        <div class="hero-price i4"><span>100 ml</span><b>$165</b></div>
+        <div class="scroll-cue i4"><i></i><span>Scroll</span></div>
+      </div>
+    </section>
+
+    <!-- 01 Anatomy -->
+    <section class="chapter anatomy" id="anatomy">
+      <div class="sticky">
+        <header class="chapter-head" data-r="anat:0:0.1:0.9:1" data-rm="anat:0:0.08:0.3:0.4">
+          <p class="chapter-no"><span>01</span> The Anatomy <span class="ar">تشريح</span></p>
+          <h2>Six parts.<br /><em>One ritual.</em></h2>
+          <p class="chapter-text">Every flacon is assembled by hand, then checked under raking light before it leaves the atelier.</p>
+        </header>
+      </div>
+    </section>
+
+    <!-- 02 Notes -->
+    <section class="chapter notes" id="notes">
+      <div class="sticky">
+        <header class="chapter-head" data-r="notes:0.04:0.16:0.9:1" data-rm="notes:0.04:0.14:0.42:0.52">
+          <p class="chapter-no"><span>02</span> The Notes <span class="ar">النوتات</span></p>
+          <h2>It lives in<br /><em>three acts.</em></h2>
+          <p class="chapter-text">A perfume is a story told over twelve hours. Bright at first, warm at heart, and cedar until the end.</p>
+        </header>
+      </div>
+    </section>
+
+    <!-- 03 Case -->
+    <section class="chapter case" id="case">
+      <div class="sticky">
+        <header class="chapter-head" data-r="case:0.52:0.64:0.92:1" data-rm="case:0.52:0.64:0.92:1">
+          <p class="chapter-no"><span>03</span> The Case <span class="ar">العلبة</span></p>
+          <h2>Sealed by hand<br /><em>in Beirut.</em></h2>
+          <p class="chapter-text">Soft-touch black board, stamped in gold foil. Numbered, signed and tied in the atelier.</p>
+        </header>
+      </div>
+    </section>
+
+    <!-- 04 Collection -->
+    <section class="chapter collection" id="collection">
+      <div class="sticky">
+        <div class="coll" data-r="coll:0.08:0.16:0.96:1">
+          <p class="chapter-no"><span>04</span> The Collection <span class="ar">المجموعة</span></p>
+          <ol class="coll-list" id="collList"></ol>
+          <div class="coll-detail" id="collDetail">
+            <p class="cd-family" id="cdFamily"></p>
+            <h3 class="cd-name"><em id="cdName"></em><span class="cd-ar" id="cdAr"></span></h3>
+            <p class="cd-notes" id="cdNotes"></p>
+            <p class="cd-story" id="cdStory"></p>
+            <div class="cd-buy">
+              <span class="cd-price"><small>100 ml</small><b id="cdPrice"></b></span>
+              <button class="btn btn-gold" id="addBtn" type="button">Add to bag</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 Atelier -->
+    <section class="atelier" id="atelier">
+      <div class="atelier-grid">
+        <div>
+          <p class="chapter-no"><span>05</span> The Atelier <span class="ar">المشغل</span></p>
+          <h2 class="big">Come smell it<br /><em>in Gemmayzeh.</em></h2>
+        </div>
+        <div class="atelier-copy">
+          <p>Every bottle of ATHAR is filled, numbered and sealed by hand in our atelier on Rue Gouraud. Come in for a blind test of all four scents. Coffee is on us.</p>
+          <dl class="facts">
+            <div><dt>Address</dt><dd>Rue Gouraud, Gemmayzeh — Beirut</dd></div>
+            <div><dt>Hours</dt><dd>Tue – Sun · 11:00 – 20:00</dd></div>
+            <div><dt>Delivery</dt><dd>All of Lebanon · 24 – 48 h</dd></div>
+            <div><dt>Payment</dt><dd>Cash on delivery · Whish · Card</dd></div>
+          </dl>
+        </div>
+      </div>
+
+      <div class="discovery">
+        <div class="discovery-vials" aria-hidden="true">
+          <i style="--c:#d9862a"></i><i style="--c:#f2d47e"></i><i style="--c:#c23650"></i><i style="--c:#47aeb4"></i>
+        </div>
+        <div class="discovery-copy">
+          <p class="eyebrow">Not sure yet?</p>
+          <h3>The Discovery Set</h3>
+          <p>All four scents in 4 × 8 ml vials. Your $38 comes back as credit on your first full bottle.</p>
+        </div>
+        <div class="discovery-buy">
+          <b>$38</b>
+          <a class="btn btn-gold" href="https://wa.me/?text=Hello%20ATHAR%2C%20I%27d%20like%20to%20order%20the%20Discovery%20Set." target="_blank" rel="noopener">Order on WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-word" aria-hidden="true">أثر</div>
+      <p class="footer-def"><em>athar</em> (n.) — the trace you leave behind. A scent should leave one.</p>
+      <div class="footer-row">
+        <span>ATHAR — Maison de Parfum, Beyrouth</span>
+        <span><a href="#top" data-go="0">Back to top ↑</a></span>
+        <span>Concept website by <a href="https://wa.me/96171919974" target="_blank" rel="noopener">AS Design LB</a></span>
+      </div>
+      <p class="footer-note">ATHAR is a concept brand made for a portfolio. Scents, prices and address are illustrative.</p>
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
